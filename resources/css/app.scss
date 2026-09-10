@@ -1,0 +1,715 @@
+// Bootstrap 5 with Joy In Zoe ministry theme.
+// Official brand palette:
+//   Brand Blue #09428F · Deep Blue #002DB3 · Red #FF0000 · Deep Red #B30000 · Yellow #FFFF00
+// The button system below maps one-to-one to this palette. Never use
+// white-on-white, yellow-on-white-text, or transparent + white text
+// without a visible border.
+
+$blue: #09428f;
+$deep-blue: #002db3;
+$red: #ff0000;
+$deep-red: #b30000;
+$yellow: #ffff00;
+
+$primary: $blue;
+$primary-bright: $deep-blue;
+$secondary: $deep-blue;
+$accent: $deep-red;
+$accent-bright: $red;
+$highlight: $yellow;
+$success: #2f7d4f;
+$info: #2f7bb5;
+$warning: #d9a400;
+$danger: $red;
+$light: #f8f9fc;
+$dark: #120e24;
+
+$enable-rounded: true;
+$enable-shadows: true;
+$enable-gradients: true;
+
+$font-family-base: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+$headings-font-weight: 600;
+
+$border-radius: .5rem;
+$border-radius-lg: .75rem;
+
+$navbar-light-toggler-border-color: rgba($primary, .3);
+
+@import 'bootstrap/scss/functions';
+@import 'bootstrap/scss/variables';
+
+$custom-colors: (
+    'brand': $primary,
+    'brand-bright': $primary-bright,
+    'accent': $accent,
+    'accent-bright': $accent-bright,
+    'highlight': $highlight,
+);
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+// --- Global ---------------------------------------------------------
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: $light;
+    color: $dark;
+    -webkit-font-smoothing: antialiased;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.lead {
+    line-height: 1.7;
+}
+
+// --- Typography -----------------------------------------------------
+
+h1, h2, h3, h4, h5, h6 {
+    color: $dark;
+}
+
+.text-brand {
+    color: $primary;
+}
+
+.text-brand-bright {
+    color: $primary-bright;
+}
+
+.text-accent {
+    color: $accent;
+}
+
+.text-accent-bright {
+    color: $accent-bright;
+}
+
+.text-highlight {
+    color: $highlight;
+}
+
+.section-eyebrow {
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    font-size: .8rem;
+    font-weight: 700;
+    color: $accent;
+}
+
+.section-eyebrow-light {
+    text-transform: uppercase;
+    letter-spacing: .18em;
+    font-size: .8rem;
+    font-weight: 700;
+    color: $highlight;
+}
+
+// --- Buttons: unified override ---------------------------------------
+//
+// New instruction, applied to EVERY button:
+//   LIGHT-background buttons  → resting text brand blue (#09428F) on light bg;
+//                               on hover, button bg becomes #09428F and
+//                               text becomes white.
+//   DARK-background buttons   → resting text white on #09428F;
+//                               on hover, button bg becomes white and
+//                               text becomes #09428F (vice versa).
+
+.btn {
+    font-weight: 500;
+    letter-spacing: .01em;
+    transition: background-color .18s ease, border-color .18s ease,
+        color .18s ease, transform .18s ease, box-shadow .18s ease;
+    max-width: 100%;
+    white-space: normal;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn:focus-visible {
+    outline: 3px solid rgba(9, 66, 143, .45);
+    outline-offset: 2px;
+    box-shadow: none;
+}
+
+// --- LIGHT-background family -----------------------------------------
+// Resting: white bg + #09428F text + #09428F border.
+// Hover:   solid #09428F bg + white text.
+
+.btn-outline-brand,
+.btn-outline-deep,
+.btn-outline-red,
+.btn-outline-deep-red,
+.btn-outline-secondary,
+.btn-outline-success,
+.btn-outline-warning,
+.btn-light,
+.btn-white,
+.btn-highlight {
+    --bs-btn-color: #09428F;
+    --bs-btn-bg: #fff;
+    --bs-btn-border-color: #09428F;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #09428F;
+    --bs-btn-hover-border-color: #09428F;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: #09428F;
+    --bs-btn-active-border-color: #09428F;
+    --bs-btn-disabled-color: rgba(9, 66, 143, .5);
+    --bs-btn-disabled-bg: #fff;
+    --bs-btn-disabled-border-color: rgba(9, 66, 143, .25);
+    --bs-btn-focus-shadow-rgb: 9, 66, 143;
+}
+
+// btn-highlight uses the brand blue as its background (bright = filled);
+// its text is always white and hover flips to brand blue text on white.
+.btn-highlight {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #09428F;
+    --bs-btn-border-color: #09428F;
+    --bs-btn-hover-color: #09428F;
+    --bs-btn-hover-bg: #fff;
+    --bs-btn-hover-border-color: #09428F;
+    --bs-btn-active-color: #09428F;
+    --bs-btn-active-bg: #fff;
+    --bs-btn-active-border-color: #09428F;
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: rgba(9, 66, 143, .5);
+    --bs-btn-disabled-border-color: rgba(9, 66, 143, .5);
+    --bs-btn-focus-shadow-rgb: 9, 66, 143;
+}
+
+// --- DARK-background family ------------------------------------------
+// Resting: solid #09428F bg + white text.
+// Hover:   white bg + #09428F text (vice versa).
+
+.btn-brand,
+.btn-deep,
+.btn-red,
+.btn-deep-red,
+.btn-accent,
+.btn-outline-white {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: #09428F;
+    --bs-btn-border-color: #09428F;
+    --bs-btn-hover-color: #09428F;
+    --bs-btn-hover-bg: #fff;
+    --bs-btn-hover-border-color: #fff;
+    --bs-btn-active-color: #09428F;
+    --bs-btn-active-bg: #fff;
+    --bs-btn-active-border-color: #fff;
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: rgba(9, 66, 143, .5);
+    --bs-btn-disabled-border-color: rgba(9, 66, 143, .5);
+    --bs-btn-focus-shadow-rgb: 9, 66, 143;
+    box-shadow: 0 .2rem .5rem rgba(9, 66, 143, .22);
+}
+
+// btn-outline-white sits on dark sections: transparent bg, white border.
+.btn-outline-white {
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: #fff;
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-color: rgba(255, 255, 255, .6);
+    --bs-btn-disabled-border-color: rgba(255, 255, 255, .4);
+    --bs-btn-focus-shadow-rgb: 255, 255, 255;
+    box-shadow: none;
+}
+
+// --- Sizes -----------------------------------------------------------
+
+.btn-sm {
+    font-weight: 500;
+}
+
+.btn-lg {
+    font-weight: 600;
+}
+
+.btn-sm,
+.btn-lg {
+    @include media-breakpoint-down(sm) {
+        padding-inline: 1rem;
+    }
+}
+
+// --- Dropdown + close buttons ----------------------------------------
+
+.dropdown-toggle {
+    white-space: nowrap;
+}
+
+// --- Navbar ---------------------------------------------------------
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: .02em;
+}
+
+.navbar-brand img {
+    max-height: 44px;
+    width: auto;
+}
+
+.navbar .nav-link {
+    font-weight: 500;
+}
+
+.navbar .nav-link.active {
+    color: $primary;
+    font-weight: 600;
+}
+
+// --- Cards ----------------------------------------------------------
+
+.card {
+    border: 1px solid rgba($dark, .08);
+    box-shadow: 0 .15rem .6rem rgba($dark, .06);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 .6rem 1.6rem rgba($dark, .13);
+    border-color: rgba($primary, .25);
+}
+
+// --- Hero -----------------------------------------------------------
+
+.hero-carousel .carousel-item {
+    min-height: 66vh;
+    max-height: 88vh;
+}
+
+.hero-carousel .carousel-item img {
+    object-fit: cover;
+    object-position: center;
+    height: 66vh;
+    max-height: 88vh;
+    width: 100%;
+}
+
+.hero-carousel .carousel-caption {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.hero-overlay {
+    background: linear-gradient(180deg, rgba(10, 6, 26, .82) 0%, rgba(10, 6, 26, .55) 55%, rgba(70, 0, 20, .85) 100%);
+}
+
+.hero-carousel .carousel-caption .display-5,
+.hero-carousel .carousel-caption .display-6 {
+    text-shadow: 0 2px 16px rgba(0, 0, 0, .55);
+}
+
+// Balanced type in the hero on small / portrait screens.
+.hero-carousel .carousel-caption .section-eyebrow-light {
+    font-size: .8rem;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, .5);
+}
+
+.hero-carousel .carousel-caption .display-5,
+.hero-carousel .carousel-caption .display-6 {
+    font-size: clamp(1.6rem, 8vw, 2.4rem);
+    line-height: 1.2;
+}
+
+.hero-carousel .carousel-caption .lead {
+    color: #fff;
+    font-size: clamp(.95rem, 4vw, 1.1rem);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, .6);
+}
+
+.hero-carousel .carousel-caption .btn-lg {
+    font-size: .95rem;
+    padding: .5rem 1rem;
+}
+
+.hero-carousel .carousel-caption .btn {
+    box-shadow: 0 .3rem 1rem rgba(0, 0, 0, .3);
+}
+
+.hero-carousel .carousel-control-prev,
+.hero-carousel .carousel-control-next {
+    width: 8%;
+    opacity: .9;
+}
+
+.hero-carousel .carousel-control-prev-icon,
+.hero-carousel .carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, .35);
+    border-radius: 50%;
+    padding: 1rem;
+    background-size: 55% 55%;
+}
+
+// --- Sections -------------------------------------------------------
+
+section {
+    scroll-margin-top: 76px;
+}
+
+.bg-soft {
+    background-color: #eef0f8;
+}
+
+.bg-brand-dark {
+    background-color: $dark;
+    color: #fff;
+}
+
+.bg-brand-dark h2,
+.bg-brand-dark h3 {
+    color: #fff;
+}
+
+.bg-brand-dark .section-eyebrow {
+    color: $highlight;
+}
+
+// --- Video / ratio --------------------------------------------------
+
+.video-frame {
+    overflow: hidden;
+    border-radius: $border-radius-lg;
+    border: 4px solid #fff;
+    box-shadow: 0 1rem 2.5rem rgba($dark, .3);
+}
+
+// --- Gallery / grids ------------------------------------------------
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.gallery-img {
+    object-fit: cover;
+    width: 100%;
+    height: 240px;
+    border-radius: .5rem;
+    border: 3px solid #fff;
+    box-shadow: 0 .25rem .9rem rgba($dark, .15);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+a:hover .gallery-img {
+    transform: scale(1.03);
+    box-shadow: 0 .6rem 1.6rem rgba($dark, .28);
+    border-color: rgba($accent, .7);
+}
+
+.gallery-category-cover {
+    object-fit: cover;
+    width: 100%;
+    height: 220px;
+    border-radius: $border-radius-lg;
+    border: 4px solid #fff;
+    box-shadow: 0 .5rem 1.4rem rgba($dark, .2);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+a:hover .gallery-category-cover {
+    transform: scale(1.03);
+    box-shadow: 0 .7rem 1.8rem rgba($dark, .32);
+    border-color: rgba($accent, .8);
+}
+
+.avatar-thumb {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+// --- Blog -----------------------------------------------------------
+
+.blog-card-img {
+    object-fit: cover;
+    width: 100%;
+    height: 200px;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+}
+
+.blog-meta {
+    font-size: .8rem;
+    color: rgba($dark, .6);
+}
+
+// --- Footer ---------------------------------------------------------
+
+footer a {
+    color: rgba(255, 255, 255, .78);
+    text-decoration: none;
+    transition: color .15s ease;
+
+    &:hover {
+        color: #fff;
+    }
+}
+
+footer .social-handle {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+}
+
+// --- Admin ----------------------------------------------------------
+
+.admin-body {
+    background-color: #f4f3f0;
+}
+
+.admin-sidebar {
+    background-color: $dark;
+    min-height: 100vh;
+}
+
+.admin-sidebar .nav-link {
+    color: rgba(255, 255, 255, .72);
+    padding: .55rem 1rem;
+    border-radius: .4rem;
+    transition: background-color .15s ease, color .15s ease;
+
+    &:hover {
+        color: #fff;
+        background-color: rgba(255, 255, 255, .08);
+    }
+
+    &.active {
+        color: #fff;
+        background-color: $primary;
+    }
+}
+
+.stat-card {
+    border-left: 4px solid $primary;
+}
+
+// --- Utility --------------------------------------------------------
+
+.text-shadow {
+    text-shadow: 0 1px 4px rgba(0, 0, 0, .35);
+}
+
+// --- Spacing helpers ------------------------------------------------
+
+.py-lg-6 {
+    @include media-breakpoint-up(lg) {
+        padding-top: 4.5rem;
+        padding-bottom: 4.5rem;
+    }
+}
+
+// --- Lightbox -------------------------------------------------------
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1080;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 8, 20, .93);
+    padding: 2rem;
+
+    &.show {
+        display: flex;
+    }
+
+    img {
+        max-width: min(1100px, 92vw);
+        max-height: 88vh;
+        border-radius: .5rem;
+        border: 6px solid #fff;
+        box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, .7);
+    }
+
+    &-close {
+        position: absolute;
+        top: 1rem;
+        right: 1.25rem;
+        background: none;
+        border: 0;
+        color: #fff;
+        font-size: 2.4rem;
+        line-height: 1;
+        cursor: pointer;
+    }
+}
+
+// --- Events ---------------------------------------------------------
+
+.event-item {
+    position: relative;
+    padding-left: 1.25rem;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: .5rem;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: $accent;
+    }
+}
+
+.event-img {
+    object-fit: cover;
+    width: 100%;
+    height: 190px;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+}
+
+.event-show-img {
+    object-fit: cover;
+    width: 100%;
+    max-height: 420px;
+}
+
+.event-desc-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: calc(1.5em * 3);
+    line-height: 1.5;
+}
+
+.event-sidebar-card {
+    background-color: #eef0f8;
+    border: 0;
+}
+
+// --- Lightbox navigation ---------------------------------------------
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3rem;
+    height: 3rem;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .15);
+    color: #fff;
+    font-size: 2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background .15s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, .3);
+    }
+}
+
+.lightbox-prev {
+    left: 1.25rem;
+}
+
+.lightbox-next {
+    right: 1.25rem;
+}
+
+@include media-breakpoint-down(sm) {
+    .lightbox-nav {
+        width: 2.4rem;
+        height: 2.4rem;
+        font-size: 1.5rem;
+    }
+}
+
+// --- Blog sidebar ----------------------------------------------------
+
+.blog-sidebar {
+    @include media-breakpoint-up(lg) {
+        position: sticky;
+        top: 5rem;
+        align-self: start;
+    }
+}
+
+.event-sidebar-img {
+    object-fit: cover;
+    width: 100%;
+    height: 150px;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+}
+
+.ad-placeholder {
+    .ad-slot {
+        min-height: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px dashed rgba($dark, .25);
+        border-radius: $border-radius;
+        background: rgba($dark, .03);
+        margin-top: .5rem;
+    }
+}
+
+.subscribe-card .form-control,
+.subscribe-card .form-control:focus {
+    background: rgba(255, 255, 255, .15);
+    border-color: rgba(255, 255, 255, .25);
+    color: #fff;
+
+    &::placeholder {
+        color: rgba(255, 255, 255, .6);
+    }
+}
+
+.text-bg-soft-brand {
+    background-color: rgba($primary, .12);
+    color: $primary;
+}
+
+.btn-liked,
+button.btn-liked:hover {
+    color: $accent;
+    border-color: rgba($accent, .5);
+    background-color: rgba($accent, .06);
+}
+
+// --- Admin navigation section label ----------------------------------
+
+.nav-section-label {
+    display: block;
+    padding: .35rem .75rem;
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, .45);
+}

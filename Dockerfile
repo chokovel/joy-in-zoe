@@ -23,7 +23,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-configure gd --with-jpeg \
     && docker-php-ext-install -j"$(nproc)" gd intl zip pdo_mysql pdo_pgsql mbstring exif opcache \
     && a2enmod rewrite headers \
-    && sed -i 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/000-default.conf \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /var/www/html
@@ -33,6 +32,7 @@ COPY --from=vendor /app/vendor ./vendor
 COPY --from=assets /app/public/build ./public/build
 COPY docker/php.ini /usr/local/etc/php/conf.d/deploy.ini
 COPY docker/start.sh /usr/local/bin/start.sh
+COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod +x /usr/local/bin/start.sh \

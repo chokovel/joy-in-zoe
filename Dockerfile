@@ -19,7 +19,7 @@ FROM php:8.2-apache
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
         libpng-dev libjpeg62-turbo-dev libzip-dev libicu-dev \
-        libonig-dev \
+        libonig-dev libpq-dev \
     && docker-php-ext-configure gd --with-jpeg \
     && docker-php-ext-install -j"$(nproc)" gd intl zip pdo_mysql pdo_pgsql mbstring exif opcache \
     && a2enmod rewrite headers \

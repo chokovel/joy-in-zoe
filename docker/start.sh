@@ -4,13 +4,13 @@ set -e
 # Render routes traffic to the $PORT env (default 10000), not 80.
 # Bind Apache to that port, defaulting to 80 outside Render.
 export PORT="${PORT:-80}"
-sed -i "s/^Listen .*/Listen ${PORT}/" /etc/apache2/ports.conf
+sed -i "s/^Listen .*/Listen ${PORT}/" /etc/apache2/ports.conf 2>/dev/null || true
 
 # Boot-time diagnostics - confirms which vhost/docroot is actually loaded.
 echo ">>> Effective Apache config:"
-grep -rhE "^\s*(DocumentRoot|DirectoryIndex|ServerName)" /etc/apache2/sites-enabled/ 2>/dev/null
+grep -rhE "^\s*(DocumentRoot|DirectoryIndex|ServerName)" /etc/apache2/sites-enabled/ 2>/dev/null || true
 echo ">>> public dir:"
-ls -la /var/www/html/public 2>/dev/null | head -15
+ls -la /var/www/html/public 2>/dev/null | head -15 || true
 test -f /var/www/html/public/index.php && echo ">>> public/index.php PRESENT" || echo ">>> public/index.php MISSING (fatal)"
 echo ">>> Boot diagnostics end."
 

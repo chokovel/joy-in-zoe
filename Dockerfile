@@ -34,6 +34,9 @@ COPY docker/php.ini /usr/local/etc/php/conf.d/deploy.ini
 COPY docker/start.sh /usr/local/bin/start.sh
 COPY docker/000-default.conf /etc/apache2/sites-available/000-default.conf
 
+RUN rm -f /etc/apache2/sites-enabled/*.conf \
+    && a2ensite 000-default
+
 RUN chown -R www-data:www-data storage bootstrap/cache \
     && chmod +x /usr/local/bin/start.sh \
     && mkdir -p storage/framework/sessions storage/framework/cache storage/framework/views

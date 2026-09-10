@@ -5,7 +5,6 @@ services:
     dockerfilePath: ./Dockerfile
     dockerContext: .
     plan: free
-    healthCheckPath: /up
     initialDeployHook: ./docker/render_seed.sh
     envVars:
       - key: APP_ENV

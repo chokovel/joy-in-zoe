@@ -7,8 +7,13 @@ require __DIR__.'/../vendor/autoload.php';
 
 $app = require __DIR__.'/../bootstrap/app.php';
 
+$request = Request::create('/', 'GET');
+
+// Mimic a real HTTP request: bind the Request into the container before
+// booting, so production's URL::forceScheme('https') finds a request.
+$app->instance('request', $request);
+
 $kernel = $app->make(Kernel::class);
-// Boot the app (LoadConfiguration, providers, etc.) before touching config().
 $kernel->bootstrap();
 
 echo '[selftest] APP_ENV='.config('app.env')
@@ -32,9 +37,20 @@ try {
 echo '[selftest] manifest='.(file_exists(public_path('build/manifest.json')) ? 'present' : 'MISSING').PHP_EOL;
 
 try {
-    $response = $kernel->handle(Request::create('/', 'GET'));
+    $response = $kernel->handle($request);
     echo '[selftest] home status='.$response->getStatusCode().PHP_EOL;
-} catch (\Throwable $e) {
+
+    if ($response->getStatusCode() >= 500) {
+        $log = storage_path('logs/laravel.log');
+        if (is_file($log)) {
+            $lines = file($log);
+            echo '[selftest] >>> exception from laravel.log:'.PHP_EOL
+                .implode('', array_slice($lines, max(0, count($lines) - 20))).PHP_EOL;
+        } else {
+            echo '[selftest] >>> laravel.log missing'.PHP_EOL;
+        }
+    }
+} catch (Throwable $e) {
     echo '[selftest] EXCEPTION '.get_class($e).': '.$e->getMessage().PHP_EOL;
     echo '[selftest]     at '.$e->getFile().':'.$e->getLine().PHP_EOL;
     echo '[selftest]     '.str_replace(PHP_EOL, ' | ', substr($e->getTraceAsString(), 0, 1600)).PHP_EOL;

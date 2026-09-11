@@ -59,4 +59,12 @@ php artisan config:cache || true
 php artisan route:cache || true
 php artisan view:cache || true
 
+# Reproduce the home route once inside the container so any production-only
+# exception is written into the deploy log.
+echo ">>> Home route self-test:"
+php /var/www/html/docker/selftest.php 2>&1 || true
+echo ">>> Laravel log tail:"
+tail -n 60 /var/www/html/storage/logs/laravel.log 2>/dev/null || echo "(laravel.log missing)"
+echo ">>> Boot complete."
+
 exec apache2-foreground
